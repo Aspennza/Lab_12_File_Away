@@ -10,14 +10,12 @@ import java.io.InputStreamReader;
 import java.io.OutputStream;
 import java.io.OutputStreamWriter;
 import static java.lang.System.out;
-
 import java.lang.reflect.Array;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.Arrays;
-
 import static java.nio.file.StandardOpenOption.CREATE;
 import javax.swing.JFileChooser;
 
