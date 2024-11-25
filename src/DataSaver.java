@@ -71,16 +71,33 @@ public class DataSaver
                     continueYN = SafeInput.getYNConfirm(in, "Would you like to continue entering records?");
             }while (continueYN);
 
+            fileName = SafeInput.getRegExString(in, "Enter the name of your file", "[a-zA-Z0-9]+");
 
+            File workingDirectory = new File(System.getProperty("user.dir"));
+            Path file = Paths.get(workingDirectory.getPath() + "\\src\\" + fileName + ".csv");
 
+            OutputStream out =
+                    new BufferedOutputStream(Files.newOutputStream(file, CREATE));
+            BufferedWriter writer =
+                    new BufferedWriter(new OutputStreamWriter(out));
 
+            for(String rec : recs)
+            {
+                writer.write(rec, 0, rec.length());
+                writer.newLine();
+            }
+            writer.close();
+            System.out.println("\nThe data file has been written.");
         }
-        catch () {
-
+        catch (FileNotFoundException e)
+        {
+            System.out.println("\nThe file couldn't be found.");
+            e.printStackTrace();
         }
-        catch () {
-
+        catch (IOException e)
+        {
+            System.out.println("\nAn exception occurred.");
+            e.printStackTrace();
         }
-
     }
 }

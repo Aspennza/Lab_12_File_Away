@@ -79,18 +79,18 @@ public class FileInspector
 
             } else
             {
-                System.out.println("The user didn't choose a file to process. Rerun the program to select and process a file.");
+                System.out.println("\nThe user didn't choose a file to process. Rerun the program to select and process a file.");
                 System.exit(0);
             }
         }
         catch (FileNotFoundException e)
         {
-            System.out.println("The file couldn't be found.");
+            System.out.println("\nThe file couldn't be found.");
             e.printStackTrace();
         }
         catch (IOException e)
         {
-            System.out.println("An exception occurred.");
+            System.out.println("\nAn exception occurred.");
             e.printStackTrace();
         }
 
