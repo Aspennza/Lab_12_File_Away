@@ -24,20 +24,62 @@ public class DataSaver
 {
     public static void main(String[] args)
     {
+        /**
+         * this Scanner takes all user input
+         */
         Scanner in = new Scanner(System.in);
+        /**
+         * this ArrayList holds a list of all completed records input by the user
+         */
         ArrayList<String> recs = new ArrayList<>();
+        /**
+         * this String holds the first names input by the user
+         */
         String firstName = "";
+        /**
+         * this String holds the last names input by the user
+         */
         String lastName = "";
+        /**
+         * this String holds the int version of the ID input by the user (so that getRangedInt can be used)
+         */
         int userNumber = 0;
+        /**
+         * this String holds the String version of the ID from userNumber with the addition of a variable number of zeroes on the front
+         */
         String numberID = "";
+        /**
+         * this String holds the email addresses input by the user
+         */
         String email = "";
+        /**
+         * this int holds the int version of the year of birth entered by the user (so that getRangedInt can be used)
+         */
         int yobInt = 0;
+        /**
+         * this String holds the String version of the year of birth from yobInt
+         */
         String yob = "";
+        /**
+         * this String holds the concatenation of firstName, lastName, numberID, email, and yob
+         */
         String recEntry = "";
+        /**
+         * this boolean tracks the true/false value of whether the user would like to continue entering records
+         */
         boolean continueYN = false;
+        /**
+         * this String holds the filename (selected by the user) of the records file the user has created
+         */
         String fileName = "";
 
+        /**
+         * this algorithm allows the user to create custom records to put into a text file, select a filename, and create a text file in the src directory
+         */
         try {
+            /**
+             * this algorithm allows the user to enter a first name, last name, ID number, email, and year of birth an unlimited number of times to create records
+             */
             do {
                     firstName = SafeInput.getNonZeroLenString(in, "Please enter a first name");
                     lastName = SafeInput.getNonZeroLenString(in, "Please enter a last name");
@@ -58,7 +100,7 @@ public class DataSaver
                         numberID = Integer.toString(userNumber);
                     }
 
-                    email = SafeInput.getRegExString(in, "Please enter an email address", "[a-zA-Z0-9]+@[a-zA-Z0-9]+[\\.][a-z]+");
+                    email = SafeInput.getRegExString(in, "Please enter an email address", "^[a-zA-Z0-9+_.-]+@[a-zA-Z0-9.-]+[\\.][a-zA-Z]+$");
 
                     yobInt = SafeInput.getRangedInt(in, "Please enter a year of birth", 1000, 9999);
 
@@ -71,9 +113,15 @@ public class DataSaver
                     continueYN = SafeInput.getYNConfirm(in, "Would you like to continue entering records?");
             }while (continueYN);
 
-            fileName = SafeInput.getRegExString(in, "Enter the name of your file", "[a-zA-Z0-9]+");
+            fileName = SafeInput.getRegExString(in, "Enter the name of your file", "[a-zA-Z0-9_]+");
 
+            /**
+             * this File holds the current directory
+             */
             File workingDirectory = new File(System.getProperty("user.dir"));
+            /**
+             * this Path holds the current directory concatenated with the location of the text file that will be created
+             */
             Path file = Paths.get(workingDirectory.getPath() + "\\src\\" + fileName + ".csv");
 
             OutputStream out =
@@ -81,6 +129,9 @@ public class DataSaver
             BufferedWriter writer =
                     new BufferedWriter(new OutputStreamWriter(out));
 
+            /**
+             * this algorithm writes the data from the recs array to a text file
+             */
             for(String rec : recs)
             {
                 writer.write(rec, 0, rec.length());
